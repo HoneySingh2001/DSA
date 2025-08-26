@@ -1,0 +1,36 @@
+#  House Robber II
+
+
+class Solution {
+public:
+    int f1(vector<int>& a, int n, int i, vector<int>& dp1) {
+        if (i >= n)
+            return 0;
+        if (dp1[i] != -1)
+            return dp1[i];
+        int x = 0, y = 0;
+        x = a[i] + f1(a, n, i + 2, dp1);
+        y = f1(a, n, i + 1, dp1);
+        return dp1[i] = max(x, y);
+    }
+    int f2(vector<int>& a, int n, int i, vector<int>& dp2) {
+        if (i < 0)
+            return 0;
+        if (dp2[i] != -1)
+            return dp2[i];
+        int x = 0, y = 0;
+        x = a[i] + f2(a, n, i - 2, dp2);
+        y = f2(a, n, i - 1, dp2);
+        return dp2[i] = max(x, y);
+    }
+    int rob(vector<int>& a) {
+        int n = a.size();
+        if (n == 1)
+            return a[0];
+        vector<int> dp1(n, -1);
+        vector<int> dp2(n, -1);
+        int x = f1(a, n, 1, dp1);
+        int y = f2(a, n, n - 2, dp2);
+        return max(x, y);
+    }
+};
