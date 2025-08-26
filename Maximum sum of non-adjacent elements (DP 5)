@@ -1,0 +1,23 @@
+#Maximum sum of non-adjacent elements (DP 5)
+
+class Solution {
+public:
+    int f(vector<int>& a, int n, int i, vector<int>& dp) {
+        if (i >= n)
+            return 0;
+        if (dp[i] != -1)
+            return dp[i];
+        int x = 0, y = 0;
+
+        y = f(a, n, i + 1, dp);
+
+        x = a[i] + f(a, n, i + 2, dp);
+
+        return dp[i] = max(x, y);
+    }
+    int rob(vector<int>& a) {
+        int n = a.size();
+        vector<int> dp(n, -1);
+        return f(a, n, 0, dp);
+    }
+};
