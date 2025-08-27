@@ -1,0 +1,36 @@
+
+##  Generate all binary strings
+class Solution {
+  public:
+  
+  unordered_map<string,int> mp;
+  void f(vector<string> &ans,string v,int n,int i){
+      if(i==n){
+          if(mp.find(v)==mp.end())
+          ans.push_back(v);
+          mp[v]++;
+          return;
+      }
+      v+='0';
+      f(ans,v,n,i+1);
+      v.pop_back();
+      if(v.empty()){
+          v+='1';
+      }
+      else{
+          int m=v.length();
+          if(v[m-1]!='1'){
+              v+='1';
+          }
+          else
+          v+='0';
+      }
+      f(ans,v,n,i+1);
+  }
+    vector<string> generateBinaryStrings(int num) {
+        vector<string> ans;
+        string t="";
+        f(ans,t,num,0);
+        return ans;
+    }
+};
