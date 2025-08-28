@@ -1,0 +1,38 @@
+## Generate Parentheses
+
+class Solution {
+public:
+
+
+void f(vector<string> &ans,string &v,int n,int op,int cl){
+    
+    if(op==n && cl==n){
+         if(v.length()==(2*n))
+         ans.push_back(v);
+         return;
+    
+    }
+    if(op<n){
+        v+="(";
+        f(ans,v,n,op+1,cl);
+        v.pop_back();
+    }
+    
+    
+    
+    if(cl<op){
+    v+=")";
+    f(ans,v,n,op,cl+1);
+    v.pop_back();
+    }
+    
+}
+    vector<string> generateParenthesis(int n) {
+        string t="";
+        vector<string> ans;
+        int op=0,cl=0;
+        string v="";
+        f(ans,v,n,op,cl);
+        return ans;
+    }
+};
