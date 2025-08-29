@@ -1,0 +1,34 @@
+# Count Subsets with Sum K (DP - 17)
+
+class Solution {
+  public:
+  
+    int count=0;
+    void f(vector<int>& a,vector<int> v, int k,int i){
+        if(i==a.size()){
+            // int sum=0;
+            // for(int i=0;i<v.size();i++){
+            //     sum+=v[i];
+            // }
+            // if(sum==k) count++;
+            if(k==0) count++;
+            
+            return;
+        }
+        if(a[i]<=k){
+            v.push_back(a[i]);
+            f(a,v,k-a[i],i+1);
+            v.pop_back();
+        }
+        f(a,v,k,i+1);
+    }
+    int perfectSum(vector<int>& a, int t) {
+        // code here
+        vector<int> v;
+        
+        f(a,v,t,0);
+        return count;
+        
+        
+    }
+};
